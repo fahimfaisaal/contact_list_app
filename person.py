@@ -14,7 +14,7 @@ class Person:
         self.phone = details[2]
         self.location = details[3]
         self.id = uuid.uuid1()
-        self.social = []
+        self.socials = []
 
     def __get_name__(self):
         return self.name
@@ -40,11 +40,11 @@ class Person:
     def __set_location__(self, location: str):
         self.location = location
 
-    def __get_social__(self):
-        return self.social
+    def __get_socials__(self):
+        return self.socials
 
-    def __set_social__(self, social_name: str, url: str):
-        self.social.append(Social(social_name, url))
+    def __set_socials__(self, social_name: str, url: str):
+        self.socials.append(Social(social_name, url))
 
     def __get_id__(self):
         return self.id

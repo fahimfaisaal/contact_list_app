@@ -9,28 +9,23 @@ def clear():
 class Display:
     contact_list = []
     command: str = ""
-    messages = {
-        "empty": """
+    messages = dict(empty="""
             ---------------------------
             🗑__Contact List is Empty__🗑
             ---------------------------
-            """,
-        "invalid_command": """
+            """, invalid_command="""
             -------------------------
             ❌__Command not Valid__❌
             -------------------------
-            """,
-        "contact_saved": """
+            """, contact_saved="""
             --------------------
             Contact has saved ✅
             --------------------
-            """,
-        "contact_clear": """
+            """, contact_clear="""
             ---------------------------
             Contact List has Cleared ✅
             ---------------------------
-        """,
-        "help": """
+        """, help="""
             ========================================
             Commands -
             * Type "show" for show all list
@@ -39,14 +34,13 @@ class Display:
             * Type "edit" <id> for edit a contact
             * Type "clear" for clear all contacts
             ========================================
-        """
-    }
+        """)
 
     @staticmethod
     def contact_display(contact: object):
         socials = ""
 
-        for social in contact.__get_social__():
+        for social in contact.__get_socials__():
             socials += f"""
             ====================
             name: {social.__get_name__()}
@@ -115,8 +109,10 @@ class Display:
 
         for i in range(number_of_social):
             social_name = input(f"Enter social name {i + 1}: ")
-            url = input(f"Enter the url of your {social_name}: ")
-            contact.__set_social__(social_name, url)
+            username = input(f"Enter your {social_name} username: ")
+
+            url = f"https://www.{social_name}.com/{username}"
+            contact.__set_socials__(social_name, url)
 
         self.contact_list.append(contact)
         clear()
