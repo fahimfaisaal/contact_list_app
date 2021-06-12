@@ -6,47 +6,47 @@ class Person:
     email = ""
     phone = ""
     location = ""
-    id = ""
 
     def __init__(self, *details):
         self.name = details[0]
         self.email = details[1]
         self.phone = details[2]
         self.location = details[3]
+        # Auto construct
         self.id = uuid.uuid1()
         self.socials = []
 
-    def __get_name__(self):
+    def get_name(self):
         return self.name
 
-    def __set_name__(self, name: str):
+    def set_name(self, name: str):
         self.name = name
 
-    def __get_email__(self):
+    def get_email(self):
         return self.email
 
-    def __set_email__(self, email: str):
+    def set_email(self, email: str):
         self.email = email
 
-    def __get_phone__(self):
+    def get_phone(self):
         return self.phone
 
-    def __set_phone__(self, phone: str):
+    def set_phone(self, phone: str):
         self.phone = phone
 
-    def __get_location__(self):
+    def get_location(self):
         return self.location
 
-    def __set_location__(self, location: str):
+    def set_location(self, location: str):
         self.location = location
 
-    def __get_socials__(self):
+    def get_socials(self):
         return self.socials
 
-    def __set_socials__(self, social_name: str, url: str):
+    def set_socials(self, social_name: str, url: str):
         self.socials.append(Social(social_name, url))
 
-    def __get_id__(self):
+    def get_id(self):
         return self.id
 
 
@@ -58,14 +58,15 @@ class Social:
         self.name = name
         self.url = url
 
-    def __get_name__(self):
+    def get_name(self):
         return self.name
 
-    def __set__social_name__(self, social_name: str):
+    def set_name(self, social_name: str):
         self.name = social_name
 
-    def __get_url__(self):
+    def get_url(self):
         return self.url
 
-    def __set__url__(self, url: str):
+    def set_url(self, social_name: str, username: str):
+        url = f"https://www.{social_name}.com/{username}"
         self.url = url
