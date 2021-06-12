@@ -1,5 +1,6 @@
 import uuid
-import social
+from Classes import social
+import json
 
 
 class Person:
@@ -14,7 +15,7 @@ class Person:
         self.phone = details[2]
         self.location = details[3]
         # Auto construct
-        self.id = uuid.uuid1()
+        self.id = str(uuid.uuid1())
         self.socials = []
 
     def get_name(self):
@@ -49,3 +50,15 @@ class Person:
 
     def get_id(self):
         return self.id
+
+    def set_id(self, uid):
+        self.id = uid
+
+    def to_dictionary(self):
+        return json.loads(
+            json.dumps(
+                self,
+                default=lambda construct: construct.__dict__
+            )
+        )
+
