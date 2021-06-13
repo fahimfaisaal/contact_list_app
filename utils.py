@@ -27,6 +27,7 @@ def contact_display(contact: object) -> str:
         location: {contact.get_location()}
         id: {contact.get_id()}
         socials ->
+        number of socials -> {str(len(contact.get_socials()))}
         {socials}
         -------------------------------------
         """
@@ -65,9 +66,9 @@ def find_index(items: list, func) -> int:
 
 def generate_message(message: str):
     return f"""
-    ----------------------------
+    -----------------------------
     {message}
-    ----------------------------
+    -----------------------------
     """
 
 
