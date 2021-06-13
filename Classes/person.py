@@ -15,7 +15,7 @@ class Person:
         self.phone = details[2]
         self.location = details[3]
         # Auto construct
-        self.id = str(uuid.uuid1())
+        self.id = str(uuid.uuid4().hex)[:-8]
         self.socials = []
 
     def get_name(self):
@@ -61,4 +61,3 @@ class Person:
                 default=lambda construct: construct.__dict__
             )
         )
-
