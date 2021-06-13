@@ -1,4 +1,4 @@
-import display
+from Classes import display
 
 if __name__ == '__main__':
     contact_list_program = display.Display()

@@ -1,4 +1,6 @@
 import uuid
+from Classes import social
+import json
 
 
 class Person:
@@ -13,7 +15,7 @@ class Person:
         self.phone = details[2]
         self.location = details[3]
         # Auto construct
-        self.id = uuid.uuid1()
+        self.id = str(uuid.uuid1())
         self.socials = []
 
     def get_name(self):
@@ -44,29 +46,19 @@ class Person:
         return self.socials
 
     def set_socials(self, social_name: str, url: str):
-        self.socials.append(Social(social_name, url))
+        self.socials.append(social.Social(social_name, url))
 
     def get_id(self):
         return self.id
 
+    def set_id(self, uid):
+        self.id = uid
 
-class Social:
-    name = ""
-    url = ""
+    def to_dictionary(self):
+        return json.loads(
+            json.dumps(
+                self,
+                default=lambda construct: construct.__dict__
+            )
+        )
 
-    def __init__(self, name: str, url: str):
-        self.name = name
-        self.url = url
-
-    def get_name(self):
-        return self.name
-
-    def set_name(self, social_name: str):
-        self.name = social_name
-
-    def get_url(self):
-        return self.url
-
-    def set_url(self, social_name: str, username: str):
-        url = f"https://www.{social_name}.com/{username}"
-        self.url = url
