@@ -32,6 +32,7 @@ class Display:
                 self.__help()
             elif split_command[0] == "exit":
                 print("Closing...")
+                # TODO: Add Save permission option
                 utils.write_contacts(self.contact_list)
             else:
                 print(utils.generate_message("❌__Invalid user command__❌"))
@@ -91,11 +92,24 @@ class Display:
 
             return self.__edit(uuid)
 
-        # if user selected 5, mean social
-        if get_edit_option == 5:
-            return self.__manage_social(contact.get_socials(), contact)
+        # if user select 1-5
+        selected = edit_options[get_edit_option - 1]
+        new_user_data = input(f"Enter new {selected}: ")
 
+        if selected == "name":
+            contact.set_name(new_user_data)
+        elif selected == "email":
+            contact.set_email(new_user_data)
+        elif selected == "phone":
+            contact.set_phone(new_user_data)
+        elif selected == "location":
+            contact.set_location(new_user_data)
+        else:
+            self.__manage_social(contact.get_socials(), contact)
 
+        utils.clear()
+        print(utils.generate_message("✅___Contact has updated___✅"))
+        print(utils.generate_message(f"id: {uuid}"))
 
     def __manage_social(self, socials: list, contact: object) -> None:
         # if socials is empty
@@ -105,7 +119,7 @@ class Display:
 
         # social edit options
         edit_options: tuple = ("add", "remove", "edit name", "edit username")
-        utils.clear()
+
         get_edit_option = utils.print_property("option", edit_options)
 
         if get_edit_option == -1:
@@ -120,7 +134,7 @@ class Display:
         # social name that would like to edit
         social_name: str = input("Enter current social name: ")
 
-        # fint the social object index by name
+        # find the social object index by name
         edit_social_index: int = utils.find_index(
             socials,
             lambda obj: obj.get_name() == social_name
@@ -131,7 +145,6 @@ class Display:
             print(utils.generate_message("❌_Invalid social name_❌"))
 
             return self.__manage_social(socials, contact)
-
 
         social: object = contact.get_socials()[edit_social_index]
 
@@ -145,9 +158,6 @@ class Display:
         else:
             social.set_url(social.get_name(), input("Enter new username: "))
 
-        utils.clear()
-        print(utils.generate_message("✅___Contact has updated___✅"))
-
     def __remove(self, uuid: str) -> None:
         # find contact index by uuid
         contact_index: int = utils.find_index(
@@ -155,13 +165,16 @@ class Display:
             lambda obj: str(obj.get_id()) == uuid
         )
 
-       # if object found
+        # if object found
         if contact_index != -1:
             self.contact_list.remove(self.contact_list[contact_index])
+            utils.clear()
             print(utils.generate_message("✅__Contact has removed__✅"))
         else:
             # if object not found
             print(utils.generate_message("❌__Invalid contact id__❌"))
+
+        print(utils.generate_message(f"id: {uuid}"))
 
     def __help(self) -> None:
         print("""
