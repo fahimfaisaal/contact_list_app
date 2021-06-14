@@ -33,16 +33,6 @@ def contact_display(contact: object) -> str:
         """
 
 
-def set_social_by_user(contact: object) -> None:
-    number_of_social: int = int(input("Enter the number of social link: "))
-
-    for i in range(number_of_social):
-        social_name: str = input(f"Enter social name {len(contact.get_socials()) + 1}: ")
-        username: str = f"https://www.{social_name.lower()}.com/{input(f'Enter the {social_name.lower()} username: ')}"
-
-        contact.set_socials(social_name, username)
-
-
 def print_property(prop_name: str, properties: Union[list, tuple]) -> int:
     # print properties
     for prop in properties:
@@ -75,8 +65,9 @@ def generate_message(message: str):
 # storage controller
 def read_contacts(contact_list: list) -> None:
     try:
-        json_object = open("./contacts/data.json", "r")
-        contacts = json.loads(json_object.read())
+        json_file = open("./contacts/data.json", "r")
+        contacts = json.loads(json_file.read())
+        json_file.close()
 
         for contact in contacts:
             person_obj_from_dic: object = person.Person(
