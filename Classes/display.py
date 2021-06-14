@@ -12,7 +12,7 @@ class Display:
         utils.read_contacts(self.contact_list)
 
         while self.command != "exit .":
-            print("__Type help for show the valid commands__")
+            print("__Type 'help' for show the valid commands__")
             self.command = input("Enter your command: ") + " .".lower()
 
             split_command: list = self.command.split(" ")
@@ -31,9 +31,12 @@ class Display:
             elif split_command[0] == "help":
                 self.__help()
             elif split_command[0] == "exit":
+                permission = self.__save_permission()
+
+                if permission:
+                    utils.write_contacts(self.contact_list)
+
                 print("Closing...")
-                # TODO: Add Save permission option
-                utils.write_contacts(self.contact_list)
             else:
                 print(utils.generate_message("❌__Invalid user command__❌"))
 
@@ -48,7 +51,7 @@ class Display:
         contact: object = person.Person(name, email, phone, location)
 
         # add social link to contact
-        utils.set_social_by_user(contact)
+        self.set_social_by_user(contact)
 
         # add contact to contact list
         self.contact_list.append(contact)
@@ -92,24 +95,24 @@ class Display:
 
             return self.__edit(uuid)
 
-        # if user select 1-5
-        selected = edit_options[get_edit_option - 1]
-        new_user_data = input(f"Enter new {selected}: ")
-
-        if selected == "name":
-            contact.set_name(new_user_data)
-        elif selected == "email":
-            contact.set_email(new_user_data)
-        elif selected == "phone":
-            contact.set_phone(new_user_data)
-        elif selected == "location":
-            contact.set_location(new_user_data)
-        else:
+        if get_edit_option == 5:
             self.__manage_social(contact.get_socials(), contact)
+        else:
+            # if user select 1-4
+            selected = edit_options[get_edit_option - 1]
+            new_user_data = input(f"Enter new {selected}: ")
+
+            if selected == "name":
+                contact.set_name(new_user_data)
+            elif selected == "email":
+                contact.set_email(new_user_data)
+            elif selected == "phone":
+                contact.set_phone(new_user_data)
+            else:
+                contact.set_location(new_user_data)
 
         utils.clear()
-        print(utils.generate_message("✅___Contact has updated___✅"))
-        print(utils.generate_message(f"id: {uuid}"))
+        print(utils.generate_message(f"✅___Contact has updated___✅\n\n    id: {uuid}"))
 
     def __manage_social(self, socials: list, contact: object) -> None:
         # if socials is empty
@@ -129,7 +132,7 @@ class Display:
             return self.__manage_social(socials, contact)
 
         if get_edit_option == 1:
-            return utils.set_social_by_user(contact)
+            return self.set_social_by_user(contact)
 
         # social name that would like to edit
         social_name: str = input("Enter current social name: ")
@@ -176,19 +179,42 @@ class Display:
 
         print(utils.generate_message(f"id: {uuid}"))
 
-    def __help(self) -> None:
-        print("""
-            =========================================
-            Commands -
-            * Type "show" for show all list
-            * Type "add" for add a contact
-            * Type "remove" <id> for remove a contact
-            * Type "edit" <id> for edit a contact
-            * Type "clear" for clear all contacts
-            * Type "exit" for exit the program
-            =========================================
-            """)
-
     def __clear(self) -> None:
         self.contact_list.clear()
         print(utils.generate_message("✅__Contact has cleared__✅"))
+
+    def __save_permission(self) -> bool:
+        permission = input("Save contacts [Y/N]: ").lower()
+
+        if permission == 'y':
+            print(utils.generate_message("✅___Contacts has saved___✅"))
+            return True
+        elif permission == 'n':
+            print(utils.generate_message("✅__Contacts hasn't saved__✅"))
+            return False
+        else:
+            return self.__save_permission()
+
+    @staticmethod
+    def __help() -> None:
+        print("""
+            ================================================
+            Commands -
+            * Type "show" for show all list
+            * Type "add" for add a new contact
+            * Type "remove" <id> for remove specific contact
+            * Type "edit" <id> for edit specific contact
+            * Type "clear" for clear all contacts
+            * Type "exit" for exit the program
+            ================================================
+            """)
+
+    @staticmethod
+    def set_social_by_user(contact: object) -> None:
+        number_of_social: int = int(input("Enter the number of social link: "))
+
+        for i in range(number_of_social):
+            social_name: str = input(f"Enter social name {len(contact.get_socials()) + 1}: ")
+            username: str = f"https://www.{social_name.lower()}.com/{input(f'Enter the {social_name.lower()} username: ')} "
+
+            contact.set_socials(social_name, username)
