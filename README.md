@@ -13,10 +13,14 @@ This is a full **CURD** application that build with python. It's can control wit
 ![help command](./asset/help-command.png)
 
 **add** - if you would like to add a new contact to the contact list then this command for you
+<br>
 ![help command](./asset/add.gif)
-
+---
 **show** - for show the contact list 💻
+<br>
 ![help command](./asset/show.gif)
-
+---
 **edit** - for edit any specific contact run edit <contact id>
+<br>
 ![help command](./asset/edit.gif)
+---
