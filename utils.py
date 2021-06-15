@@ -88,7 +88,7 @@ def read_contacts(contact_list: list) -> None:
                     )
 
             contact_list.append(person_obj_from_dic)
-    except:
+    except FileExistsError:
         pass
 
 
