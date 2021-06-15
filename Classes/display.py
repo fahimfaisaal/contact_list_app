@@ -3,8 +3,10 @@ import utils
 
 
 class Display:
-    contact_list: list = []
-    command: str = ""
+
+    def __init__(self):
+        self.contact_list = []
+        self.command = ""
 
     def start(self) -> None:
         utils.clear()
@@ -48,6 +50,7 @@ class Display:
         email: str = input("Enter email: ")
         phone: str = input("Enter phone: ")
         location: str = input("Enter location: ")
+
         contact: object = person.Person(name, email, phone, location)
 
         # add social link to contact
@@ -84,9 +87,10 @@ class Display:
         contact: object = self.contact_list[find_index_via_uuid]
 
         # options
-        edit_options: tuple = ("name", "email", "phone", "location", "socials")
+        edit_options: tuple = ("name", "email", "phone", "location", "socials", "back")
 
         get_edit_option: int = utils.print_property("property name", edit_options)
+        utils.clear()
 
         # if option not found
         if get_edit_option == -1:
@@ -95,8 +99,16 @@ class Display:
 
             return self.__edit(uuid)
 
+        if get_edit_option == 6:
+            utils.clear()
+            return
+
         if get_edit_option == 5:
-            self.__manage_social(contact.get_socials(), contact)
+            is_back = self.__edit_social(contact.get_socials(), contact)
+
+            # if user choose back
+            if is_back == "back":
+                return self.__edit(uuid)
         else:
             # if user select 1-4
             selected = edit_options[get_edit_option - 1]
@@ -114,14 +126,13 @@ class Display:
         utils.clear()
         print(utils.generate_message(f"✅___Contact has updated___✅\n\n    id: {uuid}"))
 
-    def __manage_social(self, socials: list, contact: object) -> None:
+    def __edit_social(self, socials: list, contact: object):
         # if socials is empty
         if not len(socials):
             print(utils.generate_message("🗑____Empty social____🗑"))
-            return
-
+            return None
         # social edit options
-        edit_options: tuple = ("add", "remove", "edit name", "edit username")
+        edit_options: tuple = ("add", "remove", "edit name", "edit username", "back")
 
         get_edit_option = utils.print_property("option", edit_options)
 
@@ -129,7 +140,11 @@ class Display:
             utils.clear()
             print(utils.generate_message("❌___Invalid selection___❌"))
 
-            return self.__manage_social(socials, contact)
+            return self.__edit_social(socials, contact)
+
+        if get_edit_option == 5:
+            utils.clear()
+            return "back"
 
         if get_edit_option == 1:
             return self.set_social_by_user(contact)
@@ -147,7 +162,7 @@ class Display:
             utils.clear()
             print(utils.generate_message("❌_Invalid social name_❌"))
 
-            return self.__manage_social(socials, contact)
+            return self.__edit_social(socials, contact)
 
         social: object = contact.get_socials()[edit_social_index]
 
@@ -160,6 +175,8 @@ class Display:
             social.set_url(social.get_name())
         else:
             social.set_url(social.get_name(), input("Enter new username: "))
+
+        return None
 
     def __remove(self, uuid: str) -> None:
         # find contact index by uuid
@@ -190,7 +207,7 @@ class Display:
             print(utils.generate_message("✅___Contacts has saved___✅"))
             return True
         elif permission == 'n':
-            print(utils.generate_message("✅__Contacts hasn't saved__✅"))
+            print(utils.generate_message("❌__Contacts hasn't saved__❌"))
             return False
         else:
             return self.__save_permission()
