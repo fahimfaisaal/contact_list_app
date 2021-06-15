@@ -1,1 +1,19 @@
-[]
+[
+   {
+      "name": "Fahim Faisal",
+      "email": "fahimfaisal@gmail.com",
+      "phone": "0172149****",
+      "location": "Rajshahi",
+      "id": "ba58817b2ba54c15a3ed769d",
+      "socials": [
+         {
+            "name": "Facebook",
+            "url": "https://www.facebook.com/fahimfaisaal "
+         },
+         {
+            "name": "Github",
+            "url": "https://www.github.com/fahimfaisal "
+         }
+      ]
+   }
+]
