@@ -9,18 +9,23 @@ This is a full **CURD** application that build with python. It's can control wit
 6. `clear` - for remove all contacts.
 7. `exit` - for exit the whole program.
 
-**help** - By this command it will represent you all valid commands like this -
+### help - By this command it will represent you all valid commands like this -
+
 ![help command](./asset/help-command.png)
 
-**add** - if you would like to add a new contact to the contact list then this command for you
-<br>
+### add - if you would like to add a new contact to the contact list then this command for you
+
 ![help command](./asset/add.gif)
 ---
-**show** - for show the contact list 💻
-<br>
+### show - for show the contact list 💻
+
 ![help command](./asset/show.gif)
 ---
-**edit** - for edit any specific contact run edit <contact id>
-<br>
+### edit <id> - for edit any specific contact run edit <contact id>
+
 ![help command](./asset/edit.gif)
+---
+### remove <id> - for remove any specific contact run edit <contact id>
+
+![help command](./asset/remove.gif)
 ---
