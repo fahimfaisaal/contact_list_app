@@ -39,6 +39,8 @@ class Display:
                     utils.write_contacts(self.contact_list)
 
                 print("Closing...")
+            elif split_command[0] == "cls":
+                utils.clear()
             else:
                 print(utils.generate_message("❌__Invalid user command__❌"))
 
@@ -222,6 +224,7 @@ class Display:
             * Type "remove" <id> for remove specific contact
             * Type "edit" <id> for edit specific contact
             * Type "clear" for clear all contacts
+            * Type "cls" for clear the terminal
             * Type "exit" for exit the program
             ================================================
             """)
@@ -232,6 +235,6 @@ class Display:
 
         for i in range(number_of_social):
             social_name: str = input(f"Enter social name {len(contact.get_socials()) + 1}: ")
-            username: str = f"https://www.{social_name.lower()}.com/{input(f'Enter the {social_name.lower()} username: ')} "
+            username: str = f"https://www.{social_name.lower()}.com/{input(f'Enter the {social_name.lower()} username: ')}"
 
             contact.set_socials(social_name, username)
