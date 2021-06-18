@@ -12,6 +12,8 @@ This is a full **CURD** application that build with python. It's can control wit
 
 **All contacts are save on `./contacts/data.json`**
 
+[here](https://app.diagrams.net/#Hfahimfaisaal%2Fcontact_list_app%2Fmaster%2FUML_Diagram%2FContact_list.drawio) is the UML diagram.
+
 ### help - By this command it will represent you all valid commands like this
 
 ![help command](./asset/help.gif)
