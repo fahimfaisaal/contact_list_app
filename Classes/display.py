@@ -212,6 +212,7 @@ class Display:
             print(utils.generate_message("❌__Contacts hasn't saved__❌"))
             return False
         else:
+            print(utils.generate_message("❌__Invalid commands__❌"))
             return self.__save_permission()
 
     @staticmethod
