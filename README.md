@@ -1,12 +1,13 @@
 <h1 align="center">Contact list application - CLI</h1>
 
-This is a full **CURD** application that build with python. It's can control with some specific commands. as like -
-1. `help` - for see all valid commands.
-2. `add` - for add a new contact in the contact list.
+This is a full **CURD** application that builds with python. It's can control with some specific commands. as like -
+
+1. `help` - to see all valid commands.
+2. `add` - for adding a new contact in the contact list.
 3. `show` - for show all saved contacts.
 4. `edit <id>` - for edit a specific contact.
 5. `remove <id>` - for remove a specific contact.
-6. `clear` - for remove all contacts.
+6. `clear` - to remove all contacts.
 7. `cls` - for clear terminal
 8. `exit` - for exit the whole program.
 
